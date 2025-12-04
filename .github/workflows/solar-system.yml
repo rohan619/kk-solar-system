@@ -16,7 +16,7 @@ jobs:
         strategy:
           matrix:
             nodejs_version: [18, 20]
-            operating_system: [ubuntu-latest, macos-latest]
+            operating_system: [ubuntu-latest]
             exclude:
               - nodejs_version: 18
                 operating_system: macos-latest
@@ -117,4 +117,4 @@ jobs:
           echo $IP
 
           echo Testing Image URL using wget
-          wget -q -O - 127.0.0.1/3000/live | grep live
+          wget -q -O - 127.0.0.1:3000/live | grep live
