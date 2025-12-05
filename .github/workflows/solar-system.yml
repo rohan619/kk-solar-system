@@ -179,7 +179,7 @@ jobs:
           with:
             cluster_name: "cluster-1"
             location: "us-central1-a"
-            project_id: "stellar-market-471408-n2"  
+            project_id: "playground-s-11-c98d9469"  
 
         # - name: Set Kubeconfig
         #   uses: azure/k8s-set-context@v4
