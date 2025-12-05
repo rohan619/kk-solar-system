@@ -169,16 +169,23 @@ jobs:
           uses: azure/setup-kubectl@v4
           with:
             version: 'v1.26.0'
-
-        - uses: 'google-github-actions/auth@v3'
+        - name: Authenticate to GCP using SA key
+          uses: 'google-github-actions/auth@v3'
           with:
-            credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}' # Replace with the name of your GitHub Actions secret
+            credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
-        - name: Set Kubeconfig
-          uses: azure/k8s-set-context@v4
+        - name: Set GKE credentials
+          uses: google-github-actions/get-gke-credentials@v3
           with:
-            method: kubeconfig
-            kubeconfig: ${{ secrets.KUBECONFIG }}
+            cluster_name: "cluster-1"
+            location: "us-central1-a"
+            project_id: "stellar-market-471408-n2"  
+
+        # - name: Set Kubeconfig
+        #   uses: azure/k8s-set-context@v4
+        #   with:
+        #     method: kubeconfig
+        #     kubeconfig: ${{ secrets.KUBECONFIG }}
 
         - name: Fetch Kubernetes Cluster Details
           run: |
