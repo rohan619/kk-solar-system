@@ -180,7 +180,7 @@ jobs:
           with:
             cluster_name: "cluster-1"
             location: "us-central1-a"
-            project_id: "playground-s-11-c98d9469"  
+            project_id: "playground-s-11-1a567624"  
 
         # - name: Set Kubeconfig
         #   uses: azure/k8s-set-context@v4
@@ -212,7 +212,7 @@ jobs:
 
         - name: Check Files
           run: | 
-            cat kubernetes/deveopment/*.yaml
+            cat kubernetes/development/*.yaml
           
 
 
