@@ -215,7 +215,7 @@ jobs:
             cat kubernetes/development/*.yaml
 
         - name: Create Namespace
-          run: kubectl create ns develpment
+          run: kubectl create ns development
 
         - name: Create MongoDB Secret
           run: |
