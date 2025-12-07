@@ -111,7 +111,7 @@ jobs:
         - name: Download Mocha Test Artifact
           uses: actions/download-artifact@v4
           with:
-            name: Mocha-Test-Result
+            name: Mocha-Test-Result-ubuntu-latest-18
 
         - name: Download Code Coverage Artifact
           uses: actions/download-artifact@v4
