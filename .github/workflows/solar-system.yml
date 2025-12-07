@@ -134,7 +134,10 @@ jobs:
         - name: Authenticate to GCP using Service Account
           uses: google-github-actions/auth@v3
           with:
-            service_account: ${{ secrets.GOOGLE_CREDENTIALS }}
+            credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+        - name: Set GCP Project
+          run: gcloud config set project playground-s-11-67027e1b
 
         - name: Create bucket if not exists
           run: |
