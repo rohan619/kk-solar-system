@@ -126,15 +126,18 @@ jobs:
             mv test-results.xml reports-${{ github.sha }}/
             ls -ltr reports-${{ github.sha }}
 
-        - name: Install gcloud CLI
-          uses: google-github-actions/setup-gcloud@v2
-          with:
-            version: 'latest'
+        # - name: Install gcloud CLI
+        #   uses: google-github-actions/setup-gcloud@v3
+        #   with:
+        #     version: 'latest'
 
         - name: Authenticate to GCP using Service Account
           uses: google-github-actions/auth@v3
           with:
             credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+        - name: 'Set up Cloud SDK'
+          uses: 'google-github-actions/setup-gcloud@v3'
 
         - name: Set GCP Project
           run: gcloud config set project playground-s-11-67027e1b
