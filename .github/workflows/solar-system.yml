@@ -131,6 +131,9 @@ jobs:
           with:
             version: 'latest'
 
+        - name: Set GCP Project
+          run: gcloud config set project playground-s-11-67027e1b	
+
         - name: Create bucket if not exists
           run: |
             BUCKET="kk-solar-system-github-actions-rohan"
