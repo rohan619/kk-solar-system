@@ -126,8 +126,24 @@ jobs:
             mv test-results.xml reports-${{ github.sha }}/
             ls -ltr reports-${{ github.sha }}
 
+        - name: Install gcloud CLI
+          uses: google-github-actions/setup-gcloud@v2
+          with:
+            version: 'latest'
+
+        - name: Create bucket if not exists
+          run: |
+            BUCKET="kk-solar-system-github-actions-rohan"
+            REGION="us-central1"
+
+            # Check bucket exists, else create
+            gsutil ls -b gs://$BUCKET 2>/dev/null || gsutil mb -l $REGION gs://$BUCKET
+        
         - name: Upload to Google Cloud Storage
-          run: echo "uploading......"
+          uses: 'google-github-actions/upload-cloud-storage@v3'
+          with:
+            path: 'reports-${{ github.sha }}'
+            destination: 'kk-solar-system-github-actions-rohan/reports-${{ github.sha }}'
 
     docker:
       name: Containerization
