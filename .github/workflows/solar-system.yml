@@ -39,14 +39,10 @@ jobs:
           with:
             node-version: ${{ matrix.nodejs_version }}
 
-        - name: Cache NPM dependencies
-          uses: actions/cache@v3
+        - name: Composite Action - Cache & Install NPM Packages
+          uses: ./.github/custom-actions/npm-actions
           with:
-            path: node_modules
-            key: ${{ runner.os }}-node-modules=-${{ hashFiles('package-lock.json') }}
-        
-        - name: Install Dependencies
-          run: npm install
+            path-of-folder: node_modules
 
         - name: Unit Testing
           id: nodejs-unit-testing-test
@@ -82,14 +78,10 @@ jobs:
         #   with:
         #     node-version: 18
         
-        - name: Cache NPM dependencies
-          uses: actions/cache@v3
+        - name: Composite Action - Cache & Install NPM Packages
+          uses: ./.github/custom-actions/npm-actions
           with:
-            path: node_modules
-            key: ${{ runner.os }}-node-modules=-${{ hashFiles('package-lock.json') }}
-
-        - name: Install Dependencies
-          run: npm install
+            path-of-folder: node_modules
 
         - name: Check Code Coverage
           continue-on-error: true
@@ -267,6 +259,7 @@ jobs:
             SLACK_CHANNEL: my-github-actions
             SLACK_COLOR: ${{ job.status }}
             SLACK_TITLE: Information
+            SLACK_MESSAGE: "Build & test pipeline completed with status: ${{ job.status }}"
 
           
 
