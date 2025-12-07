@@ -126,11 +126,6 @@ jobs:
             mv test-results.xml reports-${{ github.sha }}/
             ls -ltr reports-${{ github.sha }}
 
-        # - name: Install gcloud CLI
-        #   uses: google-github-actions/setup-gcloud@v3
-        #   with:
-        #     version: 'latest'
-
         - name: Authenticate to GCP using Service Account
           uses: google-github-actions/auth@v3
           with:
@@ -256,7 +251,22 @@ jobs:
             echo $URL
             echo "------------------------------------------"
             curl https://$URL/live -s -k | jq -r .status | grep -i live
-          
+     
+    slack-notification:
+      if: always()
+      name: Slack Notification
+      needs: [dev-integration-testing, prod-integration-testing]
+      continue-on-error: true
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@4
+        - name: Slack Notification
+          uses: rtCamp/action-slack-notify@v2.3.3
+          env:
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+            SLACK_CHANNEL: my-github-actions
+            SLACK_COLOR: ${{ job.status }}
+            SLACK_TITLE: Information
 
           
 
